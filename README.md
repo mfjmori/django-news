@@ -7,7 +7,7 @@
 |email|varchar|NOT NULL|
 |password|varchar|NOT NULL|
 
-## stocsテーブル
+## stocksテーブル
 |Column|Type|Options|
 |---|---|---|
 |user_id|bigint|NOT NULL, FOREIGN KEY|
