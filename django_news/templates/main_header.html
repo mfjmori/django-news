@@ -1,0 +1,20 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'news_index' str='business' %}">Django News</a>
+  <ul class="navbar-nav flex-row">
+    {% if user.is_authenticated %}
+    <li class="nav-item ml-3">
+      <p class="nav-link mb-0">こんにちは{{ user.username }}さん</p>
+    </li>
+    <li class="nav-item ml-3">
+      <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+    </li>
+    {% else %}
+    <li class="nav-item ml-3">
+      <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
+    </li>
+    <li class="nav-item ml-3">
+      <a class="nav-link" href="{% url 'login' %}">Login</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
