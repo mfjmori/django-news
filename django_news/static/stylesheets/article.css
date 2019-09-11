@@ -1,0 +1,27 @@
+.card-img-top {
+  height: 220px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.card-body {
+  height: 220px;
+}
+
+.card-body-main {
+  height: 150px;
+}
+
+.card-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.card-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
