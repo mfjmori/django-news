@@ -18,6 +18,12 @@ def news_index(request, str):
   response_dict = response_res.json()
   return render(request, 'news/news_index.html', { 'articles' : response_dict['articles']})
 
+def qiita_index(request):
+  QIITA_API_URL = os.environ.get('QIITA_API_URL')
+  response_res = requests.get(QIITA_API_URL, { 'page' : 1, 'per_page' : 20, 'query' : 'stocks:>20' })
+  response_list = response_res.json()
+  return render(request, 'news/qiita_index.html', { 'articles' : response_list })
+
 @login_required
 @require_POST
 def stock_create(request):

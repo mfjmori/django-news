@@ -8,5 +8,6 @@ urlpatterns = [
   path('stocks/', views.stock_index, name='stock_index'),
   path('stock/create/', views.stock_create, name='stock_create'),
   path('stock/<int:pk>/delete/', views.stock_delete, name='stock_delete'),
+  path('qiita/', views.qiita_index, name='qiita_index'),
   path('<str>/', views.news_index, name='news_index'),
 ]
