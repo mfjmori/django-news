@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from .models import Stock
 from .forms import StockForm
 from . import urls
@@ -34,7 +34,7 @@ def stock_index(request):
 @login_required
 @require_POST
 def stock_delete(request, pk):
-  stock = Stock.objects.get(pk=pk)
+  stock = get_object_or_404(Stock, pk=pk)
   if stock.user_id == request.user.id:
     stock.delete()
   return redirect('stock_index')
