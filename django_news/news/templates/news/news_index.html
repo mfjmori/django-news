@@ -32,7 +32,7 @@
         </div>
       </div>
       {% if user.is_authenticated %}
-        <form action="{% url 'news_create' %}" method="post" class="article-form" id="form-{{ forloop.counter }}">
+        <form action="{% url 'stock_create' %}" method="post" class="article-form" id="form-{{ forloop.counter }}">
           {% csrf_token %}
           <input type="hidden" readonly="true" name="user" value="{{user.id}}">
           <input type="hidden" readonly="true" name="url" value="{{article.url}}">

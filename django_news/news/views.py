@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect
+from .models import Stock
 from .forms import StockForm
 from . import urls
 import requests, os
@@ -19,8 +20,21 @@ def news_index(request, str):
 
 @login_required
 @require_POST
-def news_create(request):
+def stock_create(request):
   form = StockForm(request.POST)
   if form.is_valid():
     stock = form.save()
   return redirect('news_index', str='business')
+
+@login_required
+def stock_index(request):
+  stocks = Stock.objects.filter(user_id=request.user.id)
+  return render(request, 'news/stock_index.html', { 'articles' : stocks } )
+
+@login_required
+@require_POST
+def stock_delete(request, pk):
+  stock = Stock.objects.get(pk=pk)
+  if stock.user_id == request.user.id:
+    stock.delete()
+  return redirect('stock_index')
