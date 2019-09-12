@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load filter %}
 
 {% block content %}
   <div class="article-container container">
@@ -17,8 +18,11 @@
               <div class="card-body-sub d-flex justify-content-between align-items-end">
                 <div class="card-info col-5 px-0">
                   <span class="card-source text-muted text-truncate mr-2">{{article.source.name}}</span>
-                  <span class="card-date text-muted">{{ article.published_at}}</span>
+                  <span class="card-date text-muted">{{ article.publishedAt|parse_date|date:"Y-m-j H:i"}}</span>
                 </div>
+                {% if user.is_authenticated %}
+                  <button type="submit" form="form-{{ forloop.counter }}" class="btn btn-outline-success" >後で読む</button>
+                {% endif %}
                 <div class="card-buttons">
                   <a target="_blank" href="{{article.url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
                 </div>
@@ -27,6 +31,18 @@
           </div>
         </div>
       </div>
+      {% if user.is_authenticated %}
+        <form action="{% url 'news_create' %}" method="post" class="article-form" id="form-{{ forloop.counter }}">
+          {% csrf_token %}
+          <input type="hidden" readonly="true" name="user" value="{{user.id}}">
+          <input type="hidden" readonly="true" name="url" value="{{article.url}}">
+          <input type="hidden" readonly="true" name="image_url" value="{{article.urlToImage}}">
+          <input type="hidden" readonly="true" name="title" value="{{article.title}}">
+          <input type="hidden" readonly="true" name="body" value="{{article.description}}">
+          <input type="hidden" readonly="true" name="source" value="{{article.source.name}}">
+          <input type="hidden" readonly="true" name="publish_at" value="{{ article.publishedAt|parse_date|date:"Y-m-j H:i:s" }}">
+        </form>
+      {% endif %}
     {% endfor %}
   </div>
 {% endblock %}
