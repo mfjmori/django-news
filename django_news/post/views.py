@@ -24,7 +24,22 @@ def post_new(request):
     form = PostForm()
   return render(request, 'post/post_new.html', {'form': form} )
 
-@login_required
 def post_show(request, pk):
   post = get_object_or_404(Post, pk=pk)
   return render(request, 'post/post_show.html', {'post': post})
+
+@login_required
+def post_edit(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  if request.method == 'POST' and post.pk == request.user.id:
+    form = PostForm(request.POST, instance=post)
+    if form.is_valid():
+      post = form.save(commit=False)
+      now = timezone.datetime.now()
+      post.author = request.user
+      post.publish_at = now
+      post.save()
+      return redirect('post_show', pk=pk)
+  else:
+    form = PostForm(instance=post)
+  return render(request, 'post/post_edit.html', { 'form' : form } )

@@ -30,5 +30,8 @@
         </div>
       </div>
     </div>
+    {% if user.is_authenticated and post.author.id == user.id %}
+      <a class="btn btn-warning" href="{% url 'post_edit' pk=post.pk %}">編集</a>
+    {% endif %}
   </div>
 {% endblock %}
