@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit" class="btn btn-warning">投稿</button>
+  </form>
+{% endblock %}
