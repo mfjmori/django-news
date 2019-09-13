@@ -17,13 +17,21 @@ def news_index(request, str):
     return redirect('news_index', str='business')
   response_res = requests.get(NEWS_API_URL, {'country' : 'jp', 'category': category, 'apiKey' : NEWS_API_KEY})
   response_dict = response_res.json()
-  return render(request, 'news/news_index.html', { 'articles' : response_dict['articles']})
+  if request.user.is_authenticated:
+    urls = list(Stock.objects.filter(user_id=request.user.id).values_list('url', flat=True))
+    return render(request, 'news/news_index.html', { 'articles' : response_dict['articles'], 'urls' : urls})
+  else:
+    return render(request, 'news/news_index.html', { 'articles' : response_dict['articles']})
 
 def qiita_index(request):
   QIITA_API_URL = os.environ.get('QIITA_API_URL')
   response_res = requests.get(QIITA_API_URL, { 'page' : 1, 'per_page' : 20, 'query' : 'stocks:>20' })
   response_list = response_res.json()
-  return render(request, 'news/qiita_index.html', { 'articles' : response_list })
+  if request.user.is_authenticated:
+    urls = list(Stock.objects.filter(user_id=request.user.id).values_list('url', flat=True))
+    return render(request, 'news/qiita_index.html', { 'articles' : response_list, 'urls' : urls})
+  else:
+    return render(request, 'news/qiita_index.html', { 'articles' : response_list ,'urls' : urls})
 
 @login_required
 @require_POST

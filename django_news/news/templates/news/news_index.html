@@ -21,7 +21,11 @@
                   <span class="card-date text-muted">{{ article.publishedAt|parse_date|date:"Y-m-j H:i"}}</span>
                 </div>
                 {% if user.is_authenticated %}
-                  <button type="submit" form="form-{{ forloop.counter }}" class="btn btn-outline-success" >後で読む</button>
+                  {% if article.url in urls %}
+                    <button type="button" disabled class="form-submit btn btn-outline-secondary">ストック中</button>
+                  {% else %}
+                    <button type="submit" form="form-{{ forloop.counter }}" class="btn btn-outline-success" >後で読む</button>
+                  {% endif %}
                 {% endif %}
                 <div class="card-buttons">
                   <a target="_blank" href="{{article.url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
