@@ -16,12 +16,12 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'qiita_index' %}">Qiita</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'post_index' %}">投稿記事</a>
+      </li>
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'stock_index' %}">ストック</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'post_index' %}">投稿記事</a>
       </li>
       {% endif %}
     </ul>
