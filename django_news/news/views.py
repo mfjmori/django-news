@@ -47,4 +47,7 @@ def stock_delete(request, pk):
   stock = get_object_or_404(Stock, pk=pk)
   if stock.user_id == request.user.id:
     stock.delete()
+    messages.success(request, '削除しました')
+  else:
+    messages.error(request, '不正なアクセスです')
   return redirect('stock_index')
