@@ -6,8 +6,11 @@
       <p class="nav-link mb-0">こんにちは{{ user.username }}さん</p>
     </li>
     <li class="nav-item ml-3">
-      <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+      <a href="{% url 'post_new' %}" class="nav-link">新規投稿</a>
     </li>
+    </li>
+    <li class="nav-item ml-3">
+      <a href="{% url 'logout' %}" class="nav-link">Logout</a>
     {% else %}
     <li class="nav-item ml-3">
       <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
