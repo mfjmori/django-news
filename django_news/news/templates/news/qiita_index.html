@@ -18,7 +18,7 @@
               <div class="card-body-sub d-flex justify-content-between align-items-end">
                 <div class="card-info col-5 px-0">
                   <span class="card-source text-muted text-truncate mr-2">qiita</span>
-                  <span class="card-date text-muted">{{ article.created_at|parse_date|date:"Y-m-j"}}</span>
+                  <span class="card-date text-muted">{{ article.created_at|parse_date|date:"Y-m-j H:i"}}</span>
                   <span class="card-like text-muted ml-2"><i class="fas fa-thumbs-up"></i> {{ article.likes_count }}いいね</span>
                 </div>
                 {% if user.is_authenticated %}
