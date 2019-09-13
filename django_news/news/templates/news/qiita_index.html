@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load filter %}
 
 {% block content %}
@@ -7,7 +8,7 @@
       <div class="card my-3">
         <div class="row no-gutters">
           <div class="img-box col-md-4">
-            <img src="" class="card-img-top">
+            <img src="{% static 'images/qiita-square.png' %}" class="card-img-top">
           </div>
           <div class="main-box col-md-8">
             <div class="card-body">
@@ -41,7 +42,7 @@
           {% csrf_token %}
           <input type="hidden" readonly="true" name="user" value="{{user.id}}">
           <input type="hidden" readonly="true" name="url" value="{{article.url}}">
-          <input type="hidden" readonly="true" name="image_url" value="{{article.urlToImage}}">
+          <input type="hidden" readonly="true" name="image_url" value="{{ request.scheme|add:'://'|add:request.get_host }}/static/images/qiita-square.png">
           <input type="hidden" readonly="true" name="title" value="{{article.title}}">
           <input type="hidden" readonly="true" name="body" value="{{article.body}}">
           <input type="hidden" readonly="true" name="source" value="qiita">
