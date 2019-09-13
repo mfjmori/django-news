@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'error' %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="article-container container">
+    <div class="card my-3">
+      <div class="row no-gutters">
+        <div class="main-box col-md-12">
+          <div class="p-3">
+            <div>
+              <h4 class="font-weight-bold">{{post.title}}</h4>
+              <p>{{post.body}}</p>
+            </div>
+            <div class="card-body-sub d-flex justify-content-between align-items-end">
+              <div class="card-info col-5 px-0">
+                <span class="card-source text-muted text-truncate mr-2">投稿者:{{post.author.username}}</span>
+                <span class="card-date text-muted">{{ post.publish_at|date:"Y-m-j H:i"}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
