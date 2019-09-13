@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
@@ -20,7 +21,10 @@ def post_new(request):
       post.author = request.user
       post.publish_at = now
       post.save()
+      messages.success(request, '投稿しました')
       return redirect('post_show', pk=post.pk )
+    else:
+      messages.error(request, '投稿できませんでした')
   else:
     form = PostForm()
   return render(request, 'post/post_new.html', {'form': form} )
@@ -32,7 +36,7 @@ def post_show(request, pk):
 @login_required
 def post_edit(request, pk):
   post = get_object_or_404(Post, pk=pk)
-  if request.method == 'POST' and post.pk == request.user.id:
+  if request.method == 'POST' and post.author.id == request.user.id:
     form = PostForm(request.POST, instance=post)
     if form.is_valid():
       post = form.save(commit=False)
@@ -40,7 +44,10 @@ def post_edit(request, pk):
       post.author = request.user
       post.publish_at = now
       post.save()
+      messages.success(request, '更新しました')
       return redirect('post_show', pk=pk)
+    else:
+      messages.error(request, '更新できませんでした')
   else:
     form = PostForm(instance=post)
   return render(request, 'post/post_edit.html', { 'form' : form } )
@@ -51,4 +58,5 @@ def post_delete(request, pk):
   post = get_object_or_404(Post, pk=pk)
   if post.author.id == request.user.id:
     post.delete()
+    messages.success(request, '削除しました')
   return redirect('post_index')

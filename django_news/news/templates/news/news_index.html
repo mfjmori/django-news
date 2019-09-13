@@ -2,16 +2,6 @@
 {% load filter %}
 
 {% block content %}
-  {% if messages %}
-    {% for message in messages %}
-        {% if message.tags == 'success' %}
-        <div class="alert alert-success">{{ message }}</div>
-        {% endif %}
-        {% if message.tags == 'error' %}
-        <div class="alert alert-danger">{{ message }}</div>
-        {% endif %}
-    {% endfor %}
-  {% endif %}
   <div class="article-container container">
     {% for article in articles %}
       <div class="card my-3">
