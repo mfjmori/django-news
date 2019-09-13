@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from django.utils import timezone
@@ -6,7 +7,7 @@ from .models import Post
 from .forms import PostForm
 
 def post_index(request):
-  posts = Post.objects.all().order_by('publish_at').reverse
+  posts = Post.objects.select_related('author').all().order_by('publish_at').reverse
   return render(request, 'post/post_index.html', {'posts' : posts})
 
 @login_required
@@ -43,3 +44,11 @@ def post_edit(request, pk):
   else:
     form = PostForm(instance=post)
   return render(request, 'post/post_edit.html', { 'form' : form } )
+
+@login_required
+@require_POST
+def post_delete(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  if post.author.id == request.user.id:
+    post.delete()
+  return redirect('post_index')

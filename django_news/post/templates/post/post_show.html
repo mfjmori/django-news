@@ -32,6 +32,10 @@
     </div>
     {% if user.is_authenticated and post.author.id == user.id %}
       <a class="btn btn-warning" href="{% url 'post_edit' pk=post.pk %}">編集</a>
+      <form class="d-inline" method="post" action="{% url 'post_delete' pk=post.pk %}">
+        {% csrf_token %}
+        <button class="btn btn-warning ml-2" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+      </form>
     {% endif %}
   </div>
 {% endblock %}
