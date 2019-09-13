@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect,  get_object_or_404
@@ -30,6 +31,9 @@ def stock_create(request):
   form = StockForm(request.POST)
   if form.is_valid():
     stock = form.save()
+    messages.success(request, 'ストックしました')
+  else:
+    messages.error(request, 'ストックできませんでした')
   return redirect('news_index', str='business')
 
 @login_required
