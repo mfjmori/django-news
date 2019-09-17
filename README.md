@@ -30,3 +30,13 @@
 |title|varchar|||NOT NULL|
 |body|text|||NOT NULL|
 |publish_at|timestamp|||NOT NULL|
+
+## scrapingテーブル
+|Column|Type|PK|FK|Options|
+|---|---|---|---|---|
+|id|serial|○||NOT NULL, INDEX|
+|title|varchar|||NOT NULL|
+|body|text|||NOT NULL|
+|image|varchar||||
+|publish_at|timestamp|||NOT NULL|
+|url|varchar|||NOT NULL, UNIQUE|
