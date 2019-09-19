@@ -10,11 +10,19 @@ from scraping.forms import ScrapingForm
 class Command(BaseCommand):
 
   def handle(self, *args, **options):
-    topics = self.getYahooTopics()
-    for topic in topics:
-      topicAttributes = self.getTopicAttributes(topic)
-      self.createScraping(*topicAttributes)
-    print('バッチ処理が完了しました')
+    try:
+      topics = self.getYahooTopics()
+      for topic in topics:
+        try:
+          topicAttributes = self.getTopicAttributes(topic)
+          self.createScraping(*topicAttributes)
+        except:
+          print('以下の記事の保存時に例外が発生')
+          print(topic)
+          print('-----------------')
+      print('バッチ処理が完了しました')
+    except:
+      print('トピックニュース取得中に例外が発生')
   
   def getYahooTopics(self):
     sourceUrl = 'https://news.yahoo.co.jp'
