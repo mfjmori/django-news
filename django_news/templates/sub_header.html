@@ -17,6 +17,9 @@
         <a class="nav-link" href="{% url 'qiita_index' %}">Qiita</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="{% url 'scraping_index' %}">Yahoo!</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'post_index' %}">投稿記事</a>
       </li>
       {% if user.is_authenticated %}
